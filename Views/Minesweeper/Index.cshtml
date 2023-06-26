@@ -1,0 +1,88 @@
+﻿@model IEnumerable<Milestone.Models.ButtonModel>
+@{
+    string[] imageNames = { "num0.png", "num1.png", "num2.png", "num3.png", "num4.png", "num5.png", "num6.png", "num7.png", "num8.png" };
+}
+
+<html>
+<head>
+    <style>
+        .game-button {
+            width: 75px;
+            text-align: center;
+            border: none;
+        }
+
+        .game-button-image {
+            width: 100%;
+        }
+
+        .button-zone {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .line-break {
+            flex-basis: 100%;
+            height: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <p>Current Time: @DateTime.Now</p>
+
+    <form method="post" action="/Minesweeper/HandleButtonClick">
+        <div class="button-zone">
+            @foreach (var item in Model)
+            {
+                var i = item.Id;
+
+                @if (i % 5 == 0)
+                {
+                    <div class="line-break"></div>
+                }
+
+                <div class="button-zone" id=@i>
+                    @if (TempData["GameOver"] != null && (bool)TempData["GameOver"])
+                    {
+                        <p>Game Over</p>
+                    }
+
+                    <button class="game-button" type="submit" name="buttonNumber" value="@item.Id">
+                        @if (item.Flagged)
+                        {
+                            <img class="game-button-image" src="~/img/flag.png" />
+                        }
+                        else if (item.ButtonState == 0)
+                        {
+                            <img class="game-button-image" src="~/img/unopenedsquare.png" />
+                        }
+                        else if (item.Live)
+                        {
+                            <img class="game-button-image" src="~/img/Bomb.png" />
+                        }
+                        else
+                        {
+                            <img class="game-button-image" src="~/img/@imageNames[item.Neighbors]" />
+                        }
+                    </button>
+                </div>
+            }
+        </div>
+
+        
+    </form>
+
+    <form method="post" action="/Minesweeper/SaveGame">
+        <button class="game-button" type="submit" name="saveGameButton" value="save">Save Game</button>
+    </form>
+
+    <form method="post" action="/Minesweeper/ShowGames">
+        <button class="game-button" type="submit" name="saveGameButton" value="save">Show Save Game</button>
+    </form>
+
+    <div id="messageArea">
+        <p></p>
+    </div>
+</body>
+</html>

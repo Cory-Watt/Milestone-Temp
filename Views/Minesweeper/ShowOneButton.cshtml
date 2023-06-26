@@ -1,0 +1,20 @@
+﻿@model Milestone.Models.ButtonModel
+
+@{
+    string[] imageNames = { "num0.png", "num1.png", "num2.png", "num3.png", "num4.png", "num5.png", "num6.png", "num7.png", "num8.png" };
+}
+
+<button class="game-button" type="submit" value="@Model.Id" name="buttonNumber" asp-controller="Minesweeper" asp-action="HandleButtonClick">
+    @if (Model.ButtonState == 0)
+    {
+        <img class="game-button-image" src="~/img/@Model.ImageName" />
+    }
+    else if (Model.Live)
+    {
+        <img class="game-button-image" src="~/img/Bomb.png" />
+    }
+    else
+    {
+        <img class="game-button-image" src="~/img/@imageNames[Model.Neighbors]" />
+    }
+</button>

@@ -1,0 +1,13 @@
+CREATE TABLE Games
+(
+    ID INT PRIMARY KEY,
+    ButtonState INT,
+    Live BIT,
+    [Row] INT,
+    [Column] INT,
+    Visited BIT,
+    Neighbors INT,
+    ImageName NVARCHAR(255),
+    Flagged BIT,
+    SaveDateTime DATETIME
+);

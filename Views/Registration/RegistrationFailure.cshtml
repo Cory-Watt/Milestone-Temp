@@ -1,0 +1,11 @@
+﻿@model Milestone.Models.UserModel
+
+<div>
+    <h4>Registration Failed</h4>
+    <hr />
+    <p>Registration Failed for @Model.FirstName @Model.LastName . Please try again!</p>
+</div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    <a asp-action="Index">Back to List</a>
+</div>
